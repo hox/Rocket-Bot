@@ -1,9 +1,9 @@
-package net.discordlists.listeners;
+package com.rocketbot.listeners;
 
 import org.javacord.api.event.server.member.ServerMemberJoinEvent;
 import org.javacord.api.listener.server.member.ServerMemberJoinListener;
 
-import net.discordlists.bot.Main;
+import com.rocketbot.main.Main;
 
 public class MemberJoin implements ServerMemberJoinListener {
 

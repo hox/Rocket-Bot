@@ -1,4 +1,4 @@
-package net.discordlists.bot;
+package com.rocketbot.main;
 
 public class Auth {
 

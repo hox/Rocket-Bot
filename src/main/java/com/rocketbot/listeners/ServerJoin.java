@@ -1,4 +1,4 @@
-package net.discordlists.listeners;
+package com.rocketbot.listeners;
 
 import java.awt.Color;
 
@@ -7,8 +7,8 @@ import org.javacord.api.event.server.ServerJoinEvent;
 import org.javacord.api.listener.server.ServerJoinListener;
 import org.javacord.api.util.logging.ExceptionLogger;
 
-import net.discordlists.bot.Main;
-import net.discordlists.colors.ConsoleColor;
+import com.rocketbot.colors.ConsoleColor;
+import com.rocketbot.main.Main;
 
 public class ServerJoin implements ServerJoinListener {
 

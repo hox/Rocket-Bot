@@ -1,4 +1,4 @@
-package net.discordlists.commands;
+package com.rocketbot.commands;
 
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;

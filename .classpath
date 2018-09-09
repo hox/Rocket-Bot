@@ -32,7 +32,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/Java Projects/DiscordLists-Bot/mysql-connector.jar"/>
 	<classpathentry kind="lib" path="F:/log4j-1.2-api-2.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

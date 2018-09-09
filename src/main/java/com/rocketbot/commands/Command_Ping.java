@@ -1,4 +1,4 @@
-package net.discordlists.commands;
+package com.rocketbot.commands;
 
 import java.net.InetAddress;
 
@@ -6,7 +6,7 @@ import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import net.discordlists.listeners.MessageCreate;
+import com.rocketbot.listeners.MessageCreate;
 
 public class Command_Ping {
 

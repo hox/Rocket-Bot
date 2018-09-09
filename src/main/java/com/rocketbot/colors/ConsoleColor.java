@@ -1,4 +1,4 @@
-package net.discordlists.colors;
+package com.rocketbot.colors;
 
 public class ConsoleColor {
 	

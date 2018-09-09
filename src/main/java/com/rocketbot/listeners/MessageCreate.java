@@ -1,4 +1,4 @@
-package net.discordlists.listeners;
+package com.rocketbot.listeners;
 
 import java.awt.Color;
 import java.util.concurrent.ExecutionException;
@@ -10,12 +10,12 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
-import net.discordlists.bot.Main;
-import net.discordlists.commands.Command_Help;
-import net.discordlists.commands.Command_MemberCount;
-import net.discordlists.commands.Command_Ping;
-import net.discordlists.commands.Command_Test;
-import net.discordlists.commands.Command_Uptime;
+import com.rocketbot.commands.Command_Help;
+import com.rocketbot.commands.Command_MemberCount;
+import com.rocketbot.commands.Command_Ping;
+import com.rocketbot.commands.Command_Test;
+import com.rocketbot.commands.Command_Uptime;
+import com.rocketbot.main.Main;
 
 public class MessageCreate implements MessageCreateListener {
 
