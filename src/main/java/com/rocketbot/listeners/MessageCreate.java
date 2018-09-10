@@ -1,6 +1,10 @@
 package com.rocketbot.listeners;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
@@ -35,6 +39,7 @@ public class MessageCreate implements MessageCreateListener {
 		embed.setColor(Color.cyan).setFooter("Rocket | Command Issued");
 		channel = e.getChannel();
 		this.args = messageContent.replace(Main.prefix, "").split(" ");
+
 		// HELP Command
 		if (c("help") || c("commands")) {
 			new Command_Help(e, message, messageContent, args, embed);
@@ -62,6 +67,9 @@ public class MessageCreate implements MessageCreateListener {
 			new Command_Restart(e, message, messageContent, args, embed);
 		}
 
+		if (c("test")) {
+			
+		}
 	}
 
 	public static void sendBack(EmbedBuilder embed) {
@@ -70,5 +78,30 @@ public class MessageCreate implements MessageCreateListener {
 
 	public boolean c(String s) {
 		return args[0].startsWith(s);
+	}
+	
+	public static String getReq(String url) {
+		try {
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("User-Agent", "Mozilla/5.0");
+			int responseCode = con.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+				return response.toString();
+			} else {
+				return null;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }
