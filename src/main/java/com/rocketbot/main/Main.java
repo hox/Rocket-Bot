@@ -1,26 +1,24 @@
 package com.rocketbot.main;
 
-import java.sql.Connection;
 import java.util.concurrent.TimeUnit;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
 
-import com.rocketbot.colors.ConsoleColor;
 import com.rocketbot.listeners.MemberJoin;
 import com.rocketbot.listeners.MessageCreate;
-import com.rocketbot.listeners.ServerJoin;
-import com.rocketbot.listeners.ServerLeave;
 
 public class Main {
 
-	public static long DL_ID = 473271925351907328l;
+	public static long RB_ID = 488361118394351636l;
+	public static long owner_id = 223217915673968641l;
 	public static String prefix = "*";
 	public static DiscordApi api;
 	public static Thread thread;
-	public static Connection conn;
-
+	public static String[] args;
+	public static long B_ID = 473173191649394736l;
+	
 	public static long lastResume = System.currentTimeMillis();
 	public static long lastReconnect = System.currentTimeMillis();
 	public static long lastRestart = System.currentTimeMillis();
@@ -47,7 +45,6 @@ public class Main {
 		addListeners();
 		Thread thread = new Thread(new Runnable() {
 
-			@Override
 			public void run() {
 				while (true) {
 					try {
@@ -61,36 +58,35 @@ public class Main {
 			}
 
 		});
-		thread.start();
+		thread.start(); 
 	}
 
 	public static void update() {
-		api.updateActivity(ActivityType.WATCHING, api.getServers().size() + " guilds");
+		api.updateActivity(ActivityType.WATCHING, "over " + api.getServers().size() + " guilds");
 	}
 
 	public static void login(String[] args) {
+		Main.args = args;
 		try {
 			System.out.println("Launching Rocket Bot...");
 			Thread.sleep(1000);
-			if (args[0] != null) {
-				System.out.println("Using token from arguments...");
+			try {
+				System.out.println("Attempting to use token from arguments...");
 				api = new DiscordApiBuilder().setToken(args[0]).login().join();
-			} else {
+			} catch(Exception e) {
 				api = new DiscordApiBuilder().setToken(Auth.token).login().join();
 				System.out.println("Using Auth class, Token not found in arguments");
 			}
 			Thread.sleep(500);
-			System.out.println(ConsoleColor.GREEN_BOLD + "Success, Logged in!");
+			System.out.println("Success, Logged in!");
 		} catch (Exception e) {
-			System.out.println(ConsoleColor.RED_BOLD + "Launch failed!");
+			System.out.println("Launch failed!");
 			e.printStackTrace();
 		}
 	}
 	
 	public static void addListeners() {
 		api.addMessageCreateListener(new MessageCreate());
-		api.addServerJoinListener(new ServerJoin());
-		api.addServerLeaveListener(new ServerLeave());
 		api.addServerMemberJoinListener(new MemberJoin());
 	}
 }
