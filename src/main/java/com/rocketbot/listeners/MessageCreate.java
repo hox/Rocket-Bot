@@ -1,10 +1,6 @@
 package com.rocketbot.listeners;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
@@ -13,11 +9,14 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
+import com.rocketbot.commands.Command_Announce;
 import com.rocketbot.commands.Command_Help;
 import com.rocketbot.commands.Command_MemberCount;
 import com.rocketbot.commands.Command_Ping;
 import com.rocketbot.commands.Command_Restart;
+import com.rocketbot.commands.Command_Servers;
 import com.rocketbot.commands.Command_Uptime;
+import com.rocketbot.configuration.JSONUtils;
 import com.rocketbot.main.Main;
 
 public class MessageCreate implements MessageCreateListener {
@@ -67,41 +66,47 @@ public class MessageCreate implements MessageCreateListener {
 			new Command_Restart(e, message, messageContent, args, embed);
 		}
 
+		// SERVERS Command
+		if (c("servers")) {
+			if (user.getId() != Main.owner_id)
+				return;
+			new Command_Servers(e, message, messageContent, args, embed);
+		}
+
+		// ANNOUNCE Command 
+		if(c("announce") || c("a")) {
+			String rgs[] = message.getContent().toString().replace(Main.prefix, "").split(" ");;
+			new Command_Announce(e, message, messageContent, args, embed, rgs);
+		}
+		
+		// Testing commands
 		if (c("test")) {
+			if (user.getId() != Main.owner_id)
+				return;
+			if (args[1].equals("get")) {
+				embed.setTitle("Get Req").setDescription(JSONUtils.getJSONObjectFromFile(args[2]).toString());
+			}
 			
+			if (args[1].equals("put")) {
+				embed.setTitle("Put Req").setDescription("" + JSONUtils.write(args[2], args[3]));
+			}
+			
+			if (args[1].equals("delete")) {
+
+			}
+			sendBack(embed);
 		}
 	}
 
 	public static void sendBack(EmbedBuilder embed) {
 		channel.sendMessage(embed);
 	}
+	
+	public static void sendBack(String message) {
+		channel.sendMessage(message);
+	}
 
 	public boolean c(String s) {
 		return args[0].startsWith(s);
-	}
-	
-	public static String getReq(String url) {
-		try {
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("User-Agent", "Mozilla/5.0");
-			int responseCode = con.getResponseCode();
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-				return response.toString();
-			} else {
-				return null;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
 	}
 }

@@ -9,6 +9,6 @@ public class MemberJoin implements ServerMemberJoinListener {
 
 	public void onServerMemberJoin(ServerMemberJoinEvent e) {
 		if(e.getServer().getId() != Main.RB_ID) return;
-		e.getServer().getRoleById(488395211194630145l).get().addUser(e.getUser());
+		e.getUser().addRole(e.getServer().getRoleById(488535542544334858l).get());
 	}
 }

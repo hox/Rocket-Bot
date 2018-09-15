@@ -2,6 +2,7 @@ package com.rocketbot.main;
 
 import java.util.concurrent.TimeUnit;
 
+import org.discordbots.api.client.DiscordBotListAPI;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -18,6 +19,7 @@ public class Main {
 	public static Thread thread;
 	public static String[] args;
 	public static long B_ID = 473173191649394736l;
+	public static DiscordBotListAPI DBLapi;
 	
 	public static long lastResume = System.currentTimeMillis();
 	public static long lastReconnect = System.currentTimeMillis();
@@ -41,8 +43,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		login(args);
+		initDBL();
 		update();
 		addListeners();
+		/*JSONObject obj = JSONUtils.getJSONObjectFromFile("/config.json");  
+		String[] names = JSONObject.getNames(obj);
+		for(String string : names) {
+			System.out.println(string);
+		}   */                                 
 		Thread thread = new Thread(new Runnable() {
 
 			public void run() {
@@ -61,8 +69,14 @@ public class Main {
 		thread.start(); 
 	}
 
+	private static void initDBL() {
+		DBLapi = new DiscordBotListAPI.Builder().token(Auth.dbl_token).botId("473173191649394736").build();
+	}
+
 	public static void update() {
 		api.updateActivity(ActivityType.WATCHING, "over " + api.getServers().size() + " guilds");
+		DBLapi.setStats(api.getServers().size());
+		//System.out.println("Update");
 	}
 
 	public static void login(String[] args) {

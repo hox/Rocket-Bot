@@ -23,6 +23,7 @@ public class Command_Help {
 		add("**Uptime Command**", "Shows you the current uptime of the bot! [uptime, time]");
 		add("**Ping Command**", "Shows you the current ping to discord services! [ping, ms, delay]");
 		add("**Members Command**", "Gives you an active count of members on the current discord server! [members, membercount, count]");
+		add("**Announce Command**", "Announces a message in the specified channel!");
 		//FINISH & COMPILE
 		complete();
 	}
