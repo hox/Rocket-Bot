@@ -1,8 +1,0 @@
-{
-	"hi": true,
-	"EXAMPLE_ID": {
-		"Name": "SERVERNAME",
-		"ID": "ID",
-		"MemberCount": "MemberCount"
-	}
-}

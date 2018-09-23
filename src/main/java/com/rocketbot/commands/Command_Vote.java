@@ -9,20 +9,18 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.rocketbot.listeners.MessageCreate;
 
-public class Command_Announce {
+public class Command_Vote {
 
-	public Command_Announce(MessageCreateEvent e, Message m, String mc, String args2[], EmbedBuilder embed,
-			String args[]) {
-		if (args.length < 3) {
+	public Command_Vote(MessageCreateEvent e, Message m, String mc, String[] args, EmbedBuilder embed) {
+		if(args.length <= 5) {
 			embed.setTitle("Error");
-			embed.setDescription(
-					"You must provide which channel to announce it in and a message to announce! [*announce #general Announcement]");
+			embed.setDescription("You must provide a vote to start! [*vote #general(channel) 2(options) 30(minutes) Do you want eggs or bacon?(message)]");
 			embed.setColor(Color.red);
 		} else {
 			String message = "";
 			String stringchannel = args[1];
 			TextChannel channel;
-			for (int i = 2; i < args.length; i++) {
+			for (int i = 4; i < args.length; i++) {
 				message += args[i] + " ";
 			}
 			try {
@@ -35,12 +33,12 @@ public class Command_Announce {
 					embed.setColor(Color.red);
 					return;
 				}
-				embed.setTitle("Announcement");
+				embed.setTitle("Vote");
 				embed.setDescription(message);
-				embed.setFooter("Announcement sent by - " + m.getAuthor().getDiscriminatedName());
+				embed.setFooter("Vote Started by - " + m.getAuthor().getDiscriminatedName());
 				channel.sendMessage(embed);
-				embed.setTitle("Announcement");
-				embed.setDescription("Your announcement has been sent successfully!");
+				embed.setTitle("Vote");
+				embed.setDescription("Your vote has been sent successfully!");
 				embed.setFooter("Rocket | Command Issued");
 				MessageCreate.sendBack(embed);
 				return;
@@ -50,6 +48,5 @@ public class Command_Announce {
 				embed.setColor(Color.red);
 			}
 		}
-		MessageCreate.sendBack(embed);
 	}
 }

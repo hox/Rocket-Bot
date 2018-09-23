@@ -13,13 +13,15 @@ public class Command_Restart {
 		embed.setTitle("Restarting Rocket Bot");
 		embed.setDescription("in 10 seconds...");
 		MessageCreate.sendBack(embed);
-		System.out.print("Restarting Rocket (OWNER COMMAND");
+		System.out.print("Restarting Rocket (OWNER COMMAND)");
 		try {
+			//Main.thread.interrupt();
 			Main.api.disconnect();
 			System.out.println("Bot disconnected from Discord API");
 			Thread.sleep(10000);
-			Main.login(Main.args);
+			Main.initRocket();
 			System.out.println("Bot connected to Discord API");
+			//Main.thread.join();
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
