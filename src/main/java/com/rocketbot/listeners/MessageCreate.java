@@ -1,18 +1,17 @@
 package com.rocketbot.listeners;
 
 import java.awt.Color;
-import java.util.stream.Collectors;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
-import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
 import com.rocketbot.commands.Command_Announce;
 import com.rocketbot.commands.Command_Ban;
+import com.rocketbot.commands.Command_BotInfo;
 import com.rocketbot.commands.Command_Help;
 import com.rocketbot.commands.Command_Kick;
 import com.rocketbot.commands.Command_MemberCount;
@@ -20,6 +19,7 @@ import com.rocketbot.commands.Command_Ping;
 import com.rocketbot.commands.Command_Prefix;
 import com.rocketbot.commands.Command_Purge;
 import com.rocketbot.commands.Command_Restart;
+import com.rocketbot.commands.Command_ServerInfo;
 import com.rocketbot.commands.Command_Servers;
 import com.rocketbot.commands.Command_SetPrefix;
 import com.rocketbot.commands.Command_Uptime;
@@ -32,6 +32,7 @@ public class MessageCreate implements MessageCreateListener {
 	static TextChannel channel;
 
 	public void onMessageCreate(MessageCreateEvent e) {
+		if(e.getServer().get().getId() == 264445053596991498l) return;
 		Message message = e.getMessage();
 		String messageContent = message.getContent().toLowerCase().toString();
 		MessageAuthor user = e.getMessage().getAuthor();
@@ -43,8 +44,8 @@ public class MessageCreate implements MessageCreateListener {
 		channel = e.getChannel();
 		this.args = messageContent.replace(serverprefix, "").split(" ");
 		boolean admin = false;
-		for (int i = 0; i < Main.admins.length; i++) {
-			if (Main.admins[i] == user.getId())
+		for (int i = 0; i < Main.admins.size(); i++) {
+			if (Main.admins.get(i) == user.getId())
 				admin = true;
 		}
 		// HELP Command
@@ -112,25 +113,19 @@ public class MessageCreate implements MessageCreateListener {
 			new Command_Prefix(e, message, messageContent, args, embed);
 		}
 		
-		// TESTING Commands
-		if (c("test")) {
-			if (!admin)
-				return;
-			if (args[1].equals("test"))
-				ServerJoin.onServerJoin(args[2], "*");
-			if(args[1].equals("put")) {
-				ServerJoin.onServerJoin(args[2], args[3]);
-			}
-			if(args[1].equals("pushall")) {
-				for(Server server : Main.api.getServers().stream().collect(Collectors.toList())) {
-					ServerJoin.onServerJoin(server.getIdAsString(), "*");
-				}
-			}
-		}
-		
 		// POLL Command
 		if(c("poll") || c("vote")) {
 			new Command_Vote(e, message, messageContent, args, embed);
+		}
+		
+		// BOT INFO Command
+		if(c("bi") || c("botinfo")) {
+			new Command_BotInfo(e, message, messageContent, args, embed);
+		}
+		
+		// SERVER INFO Command
+		if(c("poll") || c("vote")) {
+			new Command_ServerInfo(e, message, messageContent, args, embed);
 		}
 	}
 
@@ -143,6 +138,6 @@ public class MessageCreate implements MessageCreateListener {
 	}
 
 	public boolean c(String s) {
-		return args[0].startsWith(s);
+		return args[0].equals(s);
 	}
 }
