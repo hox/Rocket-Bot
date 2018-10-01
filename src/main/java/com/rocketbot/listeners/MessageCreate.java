@@ -32,7 +32,6 @@ public class MessageCreate implements MessageCreateListener {
 	static TextChannel channel;
 
 	public void onMessageCreate(MessageCreateEvent e) {
-		if(e.getServer().get().getId() == 264445053596991498l) return;
 		Message message = e.getMessage();
 		String messageContent = message.getContent().toLowerCase().toString();
 		MessageAuthor user = e.getMessage().getAuthor();
@@ -44,6 +43,8 @@ public class MessageCreate implements MessageCreateListener {
 		channel = e.getChannel();
 		this.args = messageContent.replace(serverprefix, "").split(" ");
 		boolean admin = false;
+		if (e.getServer().get().getId() == 264445053596991498l)
+			return;
 		for (int i = 0; i < Main.admins.size(); i++) {
 			if (Main.admins.get(i) == user.getId())
 				admin = true;
@@ -102,29 +103,29 @@ public class MessageCreate implements MessageCreateListener {
 		if (c("purge")) {
 			new Command_Purge(e, message, messageContent, args, embed);
 		}
-		
+
 		// SETPREFIX Command
-		if(c("setprefix")) {
+		if (c("setprefix")) {
 			new Command_SetPrefix(e, message, messageContent, args, embed);
 		}
-		
+
 		// PREFIX Command
-		if(c("prefix")) {
+		if (c("prefix")) {
 			new Command_Prefix(e, message, messageContent, args, embed);
 		}
-		
+
 		// POLL Command
-		if(c("poll") || c("vote")) {
+		if (c("poll") || c("vote")) {
 			new Command_Vote(e, message, messageContent, args, embed);
 		}
-		
+
 		// BOT INFO Command
-		if(c("bi") || c("botinfo")) {
+		if (c("bi") || c("botinfo")) {
 			new Command_BotInfo(e, message, messageContent, args, embed);
 		}
-		
+
 		// SERVER INFO Command
-		if(c("poll") || c("vote")) {
+		if (c("poll") || c("vote")) {
 			new Command_ServerInfo(e, message, messageContent, args, embed);
 		}
 	}

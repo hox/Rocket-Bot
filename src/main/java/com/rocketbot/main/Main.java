@@ -1,12 +1,10 @@
 package com.rocketbot.main;
 
 import java.awt.Color;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -14,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.discordbots.api.client.DiscordBotListAPI;
-
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -40,11 +37,12 @@ public class Main {
 	public static DiscordApi api;
 	public static Thread ut;
 	public static Thread sgt;
+	public static long Owner_ID = 223217915673968641l;
 	public static String[] args;
 	public static long B_ID = 473173191649394736l;
 	public static DiscordBotListAPI DBLapi;
 	public static String ver_id = "0.0.5";
-	public static boolean devmode = false;
+	public static boolean devmode = true;
 	private static final String USER_AGENT = "Mozilla/5.0";
 	public static long lastResume = System.currentTimeMillis();
 	public static long lastReconnect = System.currentTimeMillis();
@@ -95,7 +93,8 @@ public class Main {
 	}
 
 	private static void initAdmins() {
-		List<Long> users = api.getServerById(RB_ID).get().getRoleById(488361491439943691l).get().getUsers().stream().map(User::getId).collect(Collectors.toList());
+		List<Long> users = api.getServerById(RB_ID).get().getRoleById(488361491439943691l).get().getUsers().stream()
+				.map(User::getId).collect(Collectors.toList());
 		admins = users;
 	}
 
@@ -140,7 +139,8 @@ public class Main {
 		 * " | Rocket Bot"); }
 		 */
 		api.updateActivity(ActivityType.LISTENING, "*help | " + ver_id + " | Rocket Bot");
-		com.rocketbot.suggestionsbot.Main.api.updateActivity(ActivityType.LISTENING, "*suggest | " + ver_id + " | Rocket Suggestions Bot");
+		com.rocketbot.suggestionsbot.Main.api.updateActivity(ActivityType.LISTENING,
+				"*suggest | " + ver_id + " | Rocket Suggestions Bot");
 		DBLapi.setStats(api.getServers().size());
 	}
 
@@ -202,6 +202,5 @@ public class Main {
 		} else {
 			return null;
 		}
-
 	}
 }
