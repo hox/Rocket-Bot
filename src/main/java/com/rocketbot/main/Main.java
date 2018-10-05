@@ -31,16 +31,16 @@ import com.rocketbot.listeners.ServerVoiceChannelMemberLeave;
 
 public class Main {
 
-	public static long RB_ID = 488361118394351636l;
+	public static long RB_ID = 488361118394351636L;
 	public static List<Long> admins;
 	public static String defaultprefix = "*";
 	public static DiscordApi api;
-	public static Thread ut;
-	public static Thread sgt;
-	public static long Owner_ID = 223217915673968641l;
+	private static Thread ut;
+	private static Thread sgt;
+	public static long Owner_ID = 223217915673968641L;
 	public static String[] args;
-	public static long B_ID = 473173191649394736l;
-	public static DiscordBotListAPI DBLapi;
+	public static long B_ID = 473173191649394736L;
+	private static DiscordBotListAPI DBLapi;
 	public static String ver_id = "0.0.5";
 	public static boolean devmode = true;
 	private static final String USER_AGENT = "Mozilla/5.0";
@@ -93,7 +93,7 @@ public class Main {
 	}
 
 	private static void initAdmins() {
-		List<Long> users = api.getServerById(RB_ID).get().getRoleById(488361491439943691l).get().getUsers().stream()
+		List<Long> users = api.getServerById(RB_ID).get().getRoleById(497170982084280330l).get().getUsers().stream()
 				.map(User::getId).collect(Collectors.toList());
 		admins = users;
 	}
@@ -120,28 +120,10 @@ public class Main {
 	}
 
 	public static void update() {
-		/*
-		 * try { if
-		 * (api.getUserById(admins[0]).get().getActivity().get().getType().equals(
-		 * ActivityType.STREAMING)) { String user =
-		 * api.getUserById(admins[0]).get().getActivity().get().getStreamingUrl().get().
-		 * toString().substring(22); String Title; JsonObject json = new
-		 * JsonParser().parse((sendGET("https://api.twitch.tv/kraken/channels/" + user +
-		 * "?client_id=a7t50xbc15f4z7c4mod2yzpdfv6zf7"))).getAsJsonObject(); Title =
-		 * json.get("status").getAsString();
-		 * 
-		 * api.updateActivity(ActivityType.STREAMING, Title); api.updateActivity(Title,
-		 * "https://twitch.tv/" + user); } else {
-		 * api.updateActivity(ActivityType.LISTENING, "*help | " + ver_id +
-		 * " | Rocket Bot"); } } catch (InterruptedException | ExecutionException |
-		 * IOException e) { e.printStackTrace();
-		 * api.updateActivity(ActivityType.LISTENING, "*help | " + ver_id +
-		 * " | Rocket Bot"); }
-		 */
 		api.updateActivity(ActivityType.LISTENING, "*help | " + ver_id + " | Rocket Bot");
 		com.rocketbot.suggestionsbot.Main.api.updateActivity(ActivityType.LISTENING,
 				"*suggest | " + ver_id + " | Rocket Suggestions Bot");
-		DBLapi.setStats(api.getServers().size());
+ 		DBLapi.setStats(api.getServers().size());
 	}
 
 	public static void login(String[] args) {
@@ -183,7 +165,7 @@ public class Main {
 		}
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({"unused", "RedundantExplicitVariableType", "StringBufferMayBeStringBuilder"})
 	private static String sendGET(String GetURL) throws IOException {
 		URL obj = new URL(GetURL);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

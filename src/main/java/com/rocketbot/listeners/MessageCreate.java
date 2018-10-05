@@ -20,7 +20,6 @@ import com.rocketbot.commands.Command_Prefix;
 import com.rocketbot.commands.Command_Purge;
 import com.rocketbot.commands.Command_Restart;
 import com.rocketbot.commands.Command_ServerInfo;
-import com.rocketbot.commands.Command_Servers;
 import com.rocketbot.commands.Command_SetPrefix;
 import com.rocketbot.commands.Command_Uptime;
 import com.rocketbot.commands.Command_Vote;
@@ -33,7 +32,7 @@ public class MessageCreate implements MessageCreateListener {
 
 	public void onMessageCreate(MessageCreateEvent e) {
 		Message message = e.getMessage();
-		String messageContent = message.getContent().toLowerCase().toString();
+		String messageContent = message.getContent().toLowerCase();
 		MessageAuthor user = e.getMessage().getAuthor();
 		String serverprefix = Main.getPrefix(e.getServer().get().getIdAsString());
 		if (!messageContent.startsWith(serverprefix) && !message.isPrivate())
@@ -76,16 +75,9 @@ public class MessageCreate implements MessageCreateListener {
 			new Command_Restart(e, message, messageContent, args, embed);
 		}
 
-		// SERVERS Command
-		if (c("servers")) {
-			if (!admin)
-				return;
-			new Command_Servers(e, message, messageContent, args, embed);
-		}
-
 		// ANNOUNCE Command
 		if (c("announce") || c("a")) {
-			String rgs[] = message.getContent().toString().replace(serverprefix, "").split(" ");
+			String rgs[] = message.getContent().replace(serverprefix, "").split(" ");
 			new Command_Announce(e, message, messageContent, args, embed, rgs);
 		}
 
@@ -125,7 +117,7 @@ public class MessageCreate implements MessageCreateListener {
 		}
 
 		// SERVER INFO Command
-		if (c("poll") || c("vote")) {
+		if (c("si") || c("serverinfo")) {
 			new Command_ServerInfo(e, message, messageContent, args, embed);
 		}
 	}
