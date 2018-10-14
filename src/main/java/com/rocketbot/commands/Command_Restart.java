@@ -1,29 +1,24 @@
 package com.rocketbot.commands;
 
+import com.rocketbot.listeners.MessageCreate;
+import com.rocketbot.main.Main;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
-
-import com.rocketbot.listeners.MessageCreate;
-import com.rocketbot.main.Main;
+import org.json.simple.JSONObject;
 
 public class Command_Restart {
 
-	public Command_Restart(MessageCreateEvent e, Message m, String mc, String args[], EmbedBuilder embed) {
+	public Command_Restart(MessageCreateEvent e, Message m, String mc, String[] args, EmbedBuilder embed, JSONObject json) {
 		embed.setTitle("Restarting Rocket Bot");
-		embed.setDescription("in 10 seconds...");
+		embed.setDescription("Rocket will now restart");
 		MessageCreate.sendBack(embed);
-		System.out.print("Restarting Rocket (OWNER COMMAND)");
-		try {
-			//Main.thread.interrupt();
-			Main.api.disconnect();
-			System.out.println("Bot disconnected from Discord API");
-			Thread.sleep(10000);
-			Main.initRocket();
-			System.out.println("Bot connected to Discord API");
-			//Main.thread.join();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
+		Main.api.disconnect();
+		System.out.println("Bot disconnected from Discord API");
+		Main.initRocket();
+		System.out.println("Bot connected to Discord API");
+		if(Main.voicechannel != null) {
+			Main.api.getVoiceChannelById(Main.voicechannel).get().asServerChannel().get().getServer().moveYourself(Main.api.getVoiceChannelById(Main.voicechannel).get().asServerVoiceChannel().get());
 		}
 	}
 }

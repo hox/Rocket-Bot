@@ -1,28 +1,38 @@
 package com.rocketbot.commands;
 
-import java.awt.Color;
-
+import com.rocketbot.listeners.MessageCreate;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.json.simple.JSONObject;
 
-import com.rocketbot.listeners.MessageCreate;
+import java.awt.*;
 
 public class Command_Announce {
 
-	public Command_Announce(MessageCreateEvent e, Message m, String mc, String args2[], EmbedBuilder embed,
-			String args[]) {
+	public Command_Announce(MessageCreateEvent e, Message m, String mc, String[] args2, EmbedBuilder embed,
+							String[] args, JSONObject json) {
 		if (args.length < 3) {
 			embed.setTitle("Error");
 			embed.setDescription(
-					"You must provide which channel to announce it in and a message to announce! [*announce #general Announcement]");
+					"You must provide which channel to announce it in and a message to announce! [*announce #general true/false(@everyone) Announcement]");
 			embed.setColor(Color.red);
 		} else {
 			String message = "";
 			String stringchannel = args[1];
 			TextChannel channel;
-			for (int i = 2; i < args.length; i++) {
+			boolean atEveryone;
+			try{
+				atEveryone = Boolean.parseBoolean(args[2]);
+			} catch(Exception e2) {
+				embed.setTitle("Error");
+				embed.setDescription("You must provide a valid true or false value for @everyone to be sent!");
+				embed.setColor(Color.red);
+				MessageCreate.sendBack(embed);
+				return;
+			}
+			for (int i = 3; i < args.length; i++) {
 				message += args[i] + " ";
 			}
 			try {
@@ -35,6 +45,14 @@ public class Command_Announce {
 					embed.setColor(Color.red);
 					return;
 				}
+				if(message.contains("\\\\")) {
+					embed.setTitle("Error");
+					embed.setDescription("You may not have `\"` in your poll!");
+					embed.setColor(Color.red);
+					MessageCreate.sendBack(embed);
+					return;
+				}
+				if(atEveryone) channel.sendMessage("@everyone");
 				embed.setTitle("Announcement");
 				embed.setDescription(message);
 				embed.setFooter("Announcement sent by - " + m.getAuthor().getDiscriminatedName());

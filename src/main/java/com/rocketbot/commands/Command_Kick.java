@@ -1,20 +1,20 @@
 package com.rocketbot.commands;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.rocketbot.listeners.MessageCreate;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.json.simple.JSONObject;
 
-import com.rocketbot.listeners.MessageCreate;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Command_Kick {
 
-	public Command_Kick(MessageCreateEvent e, Message m, String mc, String[] args, EmbedBuilder embed) {
+	public Command_Kick(MessageCreateEvent e, Message m, String mc, String[] args, EmbedBuilder embed, JSONObject json) {
 		if (args.length <= 1) {
 			embed.setTitle("Error");
 			embed.setDescription("You must provide a user to kick! [*kick @Ceaser#0001 Being a human]");
@@ -24,7 +24,7 @@ public class Command_Kick {
 				User user = null;
 				Server server = m.getServer().get();
 				String ncheckid = args[1].replace("<@", "").replace(">", "");
-				List<User> users = m.getServer().get().getMembers().stream().collect(Collectors.toList());
+				List<User> users = new ArrayList<>(m.getServer().get().getMembers());
 				for (User userm : users) {
 					String checkid = userm.getIdAsString();
 					if (ncheckid.equals(checkid)) {

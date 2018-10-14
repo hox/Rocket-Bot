@@ -1,5 +1,6 @@
 package com.rocketbot.listeners;
 
+import com.rocketbot.main.Main;
 import org.javacord.api.event.channel.server.voice.ServerVoiceChannelMemberLeaveEvent;
 import org.javacord.api.listener.channel.server.voice.ServerVoiceChannelMemberLeaveListener;
 
@@ -13,6 +14,7 @@ public class ServerVoiceChannelMemberLeave implements ServerVoiceChannelMemberLe
 				e1.printStackTrace();
 			}
 			e.getChannel().getServer().moveYourself(null);
+			Main.voicechannel = null;
 		}
 	}
 }
