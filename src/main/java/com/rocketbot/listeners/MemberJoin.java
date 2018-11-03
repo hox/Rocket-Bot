@@ -13,6 +13,9 @@ public class MemberJoin implements ServerMemberJoinListener {
 
 	public void onServerMemberJoin(ServerMemberJoinEvent e) {
 		long id = 488394986321346560l;
+		if(e.getServer().getId() == 503645787012595722l) {
+			e.getUser().addRole(e.getServer().getRoleById(503667483648065557l).get());
+		}
 		if(e.getServer().getId() != Main.RB_ID) return;
 		e.getUser().addRole(e.getServer().getRoleById(id).get()).exceptionally(ExceptionLogger.get());
 		EmbedBuilder embed = new EmbedBuilder();

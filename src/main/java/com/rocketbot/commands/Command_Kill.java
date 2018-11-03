@@ -26,11 +26,8 @@ public class Command_Kill {
                 embed.setTitle("Bot Shutdown");
                 embed.setDescription("Killing bot...");
                 MessageCreate.sendBack(embed);
-                Main.ut.join();
-                Main.sgt.join();
-                Main.votes.join();
                 Main.api.disconnect();
-                return;
+                System.exit(1);
             }
         } catch (InterruptedException | ExecutionException e1) {
             e1.printStackTrace();

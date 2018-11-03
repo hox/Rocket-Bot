@@ -18,8 +18,6 @@ public class MessageCreate implements MessageCreateListener {
 	static TextChannel channel;
 
 	public void onMessageCreate(MessageCreateEvent e) {
-		if (e.getServer().get().getId() == 264445053596991498l)
-			return;
 		Message message = e.getMessage();
 		String messageContent = message.getContent().toLowerCase();
 		MessageAuthor user = e.getMessage().getAuthor();

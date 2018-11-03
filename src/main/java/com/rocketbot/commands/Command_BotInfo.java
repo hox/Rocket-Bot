@@ -51,6 +51,7 @@ public class Command_BotInfo {
 			embed.addField("Vote Link","[Vote Here](https://discordbots.org/bot/473173191649394736/vote)", true);
 			embed.addField("Bot Version", Main.ver_id, true);
 			embed.addField("Contributors", contributors, true);
+			embed.addField("Website Link", "[Click Here](https://rocketbot.xyz)");
 			MessageCreate.sendBack(embed);
 		} catch (InterruptedException | ExecutionException e1) {
 			e1.printStackTrace();

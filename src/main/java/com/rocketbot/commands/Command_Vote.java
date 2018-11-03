@@ -21,7 +21,11 @@ import java.util.List;
 public class Command_Vote {
 
     public Command_Vote(MessageCreateEvent e, Message m, String mc, String[] args, EmbedBuilder embed, String[] rgs, JSONObject json) {
-        if (args.length <= 3) {
+        embed.setTitle("Error");
+        embed.setDescription("This command is currently disabled due to a bug.");
+        embed.setColor(Color.red);
+        MessageCreate.sendBack(embed);
+        /*if (args.length <= 3) {
             embed.setTitle("Error");
             embed.setDescription("You must provide a vote to start! [vote #general(channel) 2(options) 30(minutes) Do you want eggs or bacon?(message)]");
             embed.setColor(Color.red);
@@ -104,6 +108,6 @@ public class Command_Vote {
                 embed.setDescription("The channel you provided was invalid. Please try again.");
                 embed.setColor(Color.red);
             }
-        }
+        } */
     }
 }

@@ -55,7 +55,7 @@ public class Command_Announce {
 				if(atEveryone) channel.sendMessage("@everyone");
 				embed.setTitle("Announcement");
 				embed.setDescription(message);
-				embed.setFooter("Announcement sent by - " + m.getAuthor().getDiscriminatedName());
+				embed.setFooter("Announcement");
 				channel.sendMessage(embed);
 				embed.setTitle("Announcement");
 				embed.setDescription("Your announcement has been sent successfully!");

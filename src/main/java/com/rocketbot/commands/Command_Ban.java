@@ -43,7 +43,10 @@ public class Command_Ban {
 					for (int i = 3; i < args.length; i++) {
 						reason += args[i] + " ";
 					}
-					user.sendMessage("You have been banned from __" + server.getName() + "__ for **" + reason + "**!");
+					try {
+						user.sendMessage("You have been banned from __" + server.getName() + "__ for **" + reason + "**!");
+					} catch(NullPointerException eh) {
+					}
 					server.banUser(user);
 					embed.setTitle("Success!");
 					embed.setDescription("You have banned, " + user.getDiscriminatedName() + " from __"

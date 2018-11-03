@@ -135,7 +135,7 @@ public class Main {
                 }
             }
         });
-        votes.start();
+        //votes.start(); TODO: GET THIS WORKING AGAIN
         //noinspection InfiniteRecursion
         ut = new Thread(new Runnable() {
             @Override
